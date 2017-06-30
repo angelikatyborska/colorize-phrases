@@ -6,7 +6,7 @@ function hashToColor(hash) {
 
   var hue = hash % maxHue;
   var saturation = baseSaturation + (hash % 30);
-  var lightnessHueCorrection = Math.round(Math.sin(Math.PI * hue / (maxHue / 2)));
-  var lightness = baseLightness + -1 * lightnessDelta * lightnessHueCorrection;
+  var lightnessHueCorrection = Math.sin(Math.PI * hue / (maxHue / 2));
+  var lightness = baseLightness + -1 * Math.round(lightnessDelta * lightnessHueCorrection);
   return 'hsl(' + hue + ', ' + saturation + '%, ' + lightness + '%)';
 }
