@@ -8,7 +8,7 @@
   <script src="src/djb2.js"></script>
   <script src="src/djb2Square.js"></script>
   <script src="src/hashToColor.js"></script>
-  <script src="src/branchNames.js"></script>
+  <script src="src/phrases.js"></script>
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
@@ -30,7 +30,7 @@
   <script>
     var tbody = document.getElementById('tbody');
 
-    branchNames.forEach(function(x) {
+    phrases.forEach(function(x) {
       var row = document.createElement('tr');
       var methods = [sum, multiply, djb2, djb2Square];
 

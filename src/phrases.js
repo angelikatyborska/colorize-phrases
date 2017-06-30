@@ -1,4 +1,4 @@
-var branchNames = [
+var phrases = [
   'a',
   'b',
   'c',
