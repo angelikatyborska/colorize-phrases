@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+<head>
+  <title>Test</title>
+  <meta charset="utf-8">
+  <style>
+    body {
+      background-color: hsl(230, 20%, 30%);
+      font-family: monospace;
+      font-size: 12px;
+    }
+
+    table {
+      border-spacing: 0;
+    }
+
+    th {
+      background-color: white;
+    }
+
+    td, th {
+      color: hsl(230, 20%, 30%);
+      padding: 3px;
+      max-width: 200px;
+      word-wrap: break-word;
+    }
+
+  </style>
+</head>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th>sum</th>
+        <th>multiply</th>
+        <th>dbj2</th>
+        <th>dbj2 modified with square root</th>
+      </tr>
+    </thead>
+    <tbody id="tbody">
+    </tbody>
+  </table>
+  <script>
+
+    function djb2(string) {
+      return string
+      .split('')
+      .reduce((acc, char) => (((acc << 5) + acc) + char.charCodeAt(0)), 5381);
+    }
+
+    function djb2root(string) {
+      return string
+      .split('')
+      .reduce((acc, char) => (((acc << 5) + acc) + char.charCodeAt(0) * char.charCodeAt(0)), 5381);
+    }
+
+    function multiply(string) {
+      return string
+      .split('')
+      .reduce((acc, char) => (acc * char.charCodeAt(0)), 1);
+    }
+
+    function sum(string) {
+      return string
+      .split('')
+      .reduce((acc, char) => (acc + char.charCodeAt(0)), 0);
+    }
+
+    function branchNameToColor(string, hash) {
+      const maxHue = 360;
+      const baseSaturation = 70;
+      const baseLightness = 65;
+      const lightnessDelta = 10;
+
+      const hue = hash % maxHue;
+      const saturation = baseSaturation + (hash % 25);
+      const lightnessHueCorrection = Math.round(Math.sin(Math.PI * hue / (maxHue / 2)));
+      const lightness = baseLightness + -1 * lightnessDelta * lightnessHueCorrection;
+      return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+    }
+
+    var tbody = document.getElementById('tbody');
+
+    var brancNames = [
+    'a',
+    'b',
+    'c',
+    'd',
+    'e',
+    'f',
+    'g',
+    'h',
+    'hh',
+    'hhh',
+    'hhhh',
+    'hhhhh',
+    'hhhhhh',
+    'hhhhhhh',
+    'master',
+    'develop',
+    'test',
+    'feature/shiny-stuff',
+    'feature/awesome-button',
+    'bugfix/nasty-errors',
+    'loooooooooooooooooooooooooooooooooooooooooong',
+    'looooooooooooooooooooooooooooooooooooooooooong',
+    'loooooooooooooooooooooooooooooooooooooooooooong',
+    'looooooooooooooooooooooooooooooooooooooooooooong',
+    ];
+
+    brancNames.forEach(function(x) {
+      var row = document.createElement('tr');
+      var tdSum = document.createElement('td');
+      var tdMultiply = document.createElement('td');
+      var tdDbj2 = document.createElement('td');
+      var tdDjb2root = document.createElement('td');
+
+      tdSum.append(x + ' ' + branchNameToColor(x, sum(x)));
+      tdSum.style.backgroundColor = branchNameToColor(x, sum(x));
+
+      tdMultiply.append(x + ' ' + branchNameToColor(x, multiply(x)));
+      tdMultiply.style.backgroundColor = branchNameToColor(x, multiply(x));
+
+      tdDbj2.append(x + ' ' + branchNameToColor(x, djb2(x)));
+      tdDbj2.style.backgroundColor = branchNameToColor(x, djb2(x));
+
+      tdDjb2root.append(x + ' ' + branchNameToColor(x, djb2root(x)));
+      tdDjb2root.style.backgroundColor = branchNameToColor(x, djb2root(x));
+
+      row.append(tdSum);
+      row.append(tdMultiply);
+      row.append(tdDbj2);
+      row.append(tdDjb2root);
+
+      tbody.append(row);
+    });
+    document.getElementById('tbody')
+  </script>
+</body>
+</html>
