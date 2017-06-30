@@ -21,8 +21,15 @@
     td, th {
       color: hsl(230, 20%, 30%);
       padding: 3px;
-      max-width: 200px;
       word-wrap: break-word;
+    }
+
+    .name {
+      max-width: 100px;
+    }
+
+    .color {
+      text-align: right;
     }
 
   </style>
@@ -31,10 +38,10 @@
   <table>
     <thead>
       <tr>
-        <th>sum</th>
-        <th>multiply</th>
-        <th>dbj2</th>
-        <th>dbj2 modified with square root</th>
+        <th colspan="2">sum</th>
+        <th colspan="2">multiply</th>
+        <th colspan="2">djb2</th>
+        <th colspan="2">djb2 modified with square root</th>
       </tr>
     </thead>
     <tbody id="tbody">
@@ -101,36 +108,34 @@
     'test',
     'feature/shiny-stuff',
     'feature/awesome-button',
+    'feature/banana',
+    'feature/nanana',
     'bugfix/nasty-errors',
     'loooooooooooooooooooooooooooooooooooooooooong',
     'looooooooooooooooooooooooooooooooooooooooooong',
     'loooooooooooooooooooooooooooooooooooooooooooong',
-    'looooooooooooooooooooooooooooooooooooooooooooong',
     ];
 
     brancNames.forEach(function(x) {
       var row = document.createElement('tr');
-      var tdSum = document.createElement('td');
-      var tdMultiply = document.createElement('td');
-      var tdDbj2 = document.createElement('td');
-      var tdDjb2root = document.createElement('td');
+      var methods = [sum, multiply, djb2, djb2root];
 
-      tdSum.append(x + ' ' + branchNameToColor(x, sum(x)));
-      tdSum.style.backgroundColor = branchNameToColor(x, sum(x));
+      methods.forEach(function(method) {
+        var nameCell = document.createElement('td');
+        var colorCell = document.createElement('td');
+        var color = branchNameToColor(x, method(x));
 
-      tdMultiply.append(x + ' ' + branchNameToColor(x, multiply(x)));
-      tdMultiply.style.backgroundColor = branchNameToColor(x, multiply(x));
+        nameCell.append(x);
+        colorCell.append(color);
 
-      tdDbj2.append(x + ' ' + branchNameToColor(x, djb2(x)));
-      tdDbj2.style.backgroundColor = branchNameToColor(x, djb2(x));
+        nameCell.style.backgroundColor = color;
+        colorCell.style.backgroundColor = color;
 
-      tdDjb2root.append(x + ' ' + branchNameToColor(x, djb2root(x)));
-      tdDjb2root.style.backgroundColor = branchNameToColor(x, djb2root(x));
+        nameCell.className = 'name';
+        colorCell.className = 'color';
 
-      row.append(tdSum);
-      row.append(tdMultiply);
-      row.append(tdDbj2);
-      row.append(tdDjb2root);
+        row.append(nameCell, colorCell);
+      });
 
       tbody.append(row);
     });
