@@ -1,0 +1,27 @@
+body {
+  background-color: hsl(230, 20%, 30%);
+  font-family: monospace;
+  font-size: 12px;
+}
+
+table {
+  border-spacing: 0;
+}
+
+th {
+  background-color: white;
+}
+
+td, th {
+  color: hsl(230, 20%, 30%);
+  padding: 3px;
+  word-wrap: break-word;
+}
+
+.name {
+  max-width: 100px;
+}
+
+.color {
+  text-align: right;
+}

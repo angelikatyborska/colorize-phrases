@@ -3,36 +3,13 @@
 <head>
   <title>Test</title>
   <meta charset="utf-8">
-  <style>
-    body {
-      background-color: hsl(230, 20%, 30%);
-      font-family: monospace;
-      font-size: 12px;
-    }
-
-    table {
-      border-spacing: 0;
-    }
-
-    th {
-      background-color: white;
-    }
-
-    td, th {
-      color: hsl(230, 20%, 30%);
-      padding: 3px;
-      word-wrap: break-word;
-    }
-
-    .name {
-      max-width: 100px;
-    }
-
-    .color {
-      text-align: right;
-    }
-
-  </style>
+  <script src="sum.js"></script>
+  <script src="multiply.js"></script>
+  <script src="djb2.js"></script>
+  <script src="djb2Square.js"></script>
+  <script src="hashToColor.js"></script>
+  <script src="branchNames.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
   <table>
@@ -41,89 +18,23 @@
         <th colspan="2">sum</th>
         <th colspan="2">multiply</th>
         <th colspan="2">djb2</th>
-        <th colspan="2">djb2 modified with square root</th>
+        <th colspan="2">djb2 modified - pow(x, 2)</th>
       </tr>
     </thead>
     <tbody id="tbody">
     </tbody>
   </table>
   <script>
-
-    function djb2(string) {
-      return string
-      .split('')
-      .reduce((acc, char) => (((acc << 5) + acc) + char.charCodeAt(0)), 5381);
-    }
-
-    function djb2root(string) {
-      return string
-      .split('')
-      .reduce((acc, char) => (((acc << 5) + acc) + char.charCodeAt(0) * char.charCodeAt(0)), 5381);
-    }
-
-    function multiply(string) {
-      return string
-      .split('')
-      .reduce((acc, char) => (acc * char.charCodeAt(0)), 1);
-    }
-
-    function sum(string) {
-      return string
-      .split('')
-      .reduce((acc, char) => (acc + char.charCodeAt(0)), 0);
-    }
-
-    function branchNameToColor(string, hash) {
-      const maxHue = 360;
-      const baseSaturation = 70;
-      const baseLightness = 65;
-      const lightnessDelta = 10;
-
-      const hue = hash % maxHue;
-      const saturation = baseSaturation + (hash % 25);
-      const lightnessHueCorrection = Math.round(Math.sin(Math.PI * hue / (maxHue / 2)));
-      const lightness = baseLightness + -1 * lightnessDelta * lightnessHueCorrection;
-      return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
-    }
-
     var tbody = document.getElementById('tbody');
 
-    var brancNames = [
-    'a',
-    'b',
-    'c',
-    'd',
-    'e',
-    'f',
-    'g',
-    'h',
-    'hh',
-    'hhh',
-    'hhhh',
-    'hhhhh',
-    'hhhhhh',
-    'hhhhhhh',
-    'master',
-    'develop',
-    'test',
-    'feature/shiny-stuff',
-    'feature/awesome-button',
-    'feature/banana',
-    'feature/nanana',
-    'bugfix/nasty-errors',
-    'loooooooooooooooooooooooooooooooooooooooooong',
-    'looooooooooooooooooooooooooooooooooooooooooong',
-    'loooooooooooooooooooooooooooooooooooooooooooong',
-    ];
-
-    brancNames.forEach(function(x) {
+    branchNames.forEach(function(x) {
       var row = document.createElement('tr');
-      var methods = [sum, multiply, djb2, djb2root];
+      var methods = [sum, multiply, djb2, djb2Square];
 
       methods.forEach(function(method) {
         var nameCell = document.createElement('td');
         var colorCell = document.createElement('td');
-        var color = branchNameToColor(x, method(x));
+        var color = hashToColor(method(x));
 
         nameCell.append(x);
         colorCell.append(color);
@@ -139,7 +50,8 @@
 
       tbody.append(row);
     });
-    document.getElementById('tbody')
+
+    document.getElementById('tbody');
   </script>
 </body>
 </html>
