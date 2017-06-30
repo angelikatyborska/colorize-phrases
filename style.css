@@ -18,10 +18,6 @@ td, th {
   word-wrap: break-word;
 }
 
-.name {
-  max-width: 100px;
-}
-
 .color {
   text-align: right;
 }
