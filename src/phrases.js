@@ -24,4 +24,6 @@ var phrases = [
   'bugfix/nasty-errors',
   'shower time',
   'where moist',
+  'anna',
+  'nana',
 ];
