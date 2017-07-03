@@ -19,4 +19,6 @@ var phrases = [
   'feature/banana',
   'feature/nanana',
   'bugfix/nasty-errors',
+  'shower time',
+  'where moist',
 ];
